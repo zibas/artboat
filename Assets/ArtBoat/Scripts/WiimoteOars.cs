@@ -102,7 +102,7 @@ public class WiimoteOars : MonoBehaviour
         {
 
             // Probably crossed the line between 180 and -180
-            if (Mathf.Abs(angleDelta) > 100)
+            if (Mathf.Abs(angleDelta) > 1)
             {
                 oar.speed = 0;
             }
@@ -118,6 +118,13 @@ public class WiimoteOars : MonoBehaviour
             oar.speed = 0;
         }
 
+        if(oar.speed > 100)
+        {
+            Debug.LogWarning("Speed " + oar.speed + " angle " + oar.angle + " angle delta " + angleDelta);
+        } else
+        {
+          //  Debug.Log(angleDelta);
+        }
 
         oar.smoothSpeed = Mathf.SmoothDamp(oar.smoothSpeed, oar.speed, ref oar.yVelocity, oar.smoothTime);
         oar.inWater = Mathf.Abs(oar.smoothSpeed) > inWaterSpeedThreshold;
