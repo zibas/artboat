@@ -18,8 +18,8 @@ public class BoatController : MonoBehaviour {
         bool left = Input.GetKeyUp(KeyCode.LeftArrow);
         bool right = Input.GetKeyUp(KeyCode.RightArrow);
 
-        if (left) { currentTorque += TorquePerStroke; }
-        if (right) { currentTorque -= TorquePerStroke; }
+        if (left) { currentTorque -= TorquePerStroke; }
+        if (right) { currentTorque += TorquePerStroke; }
 
         if (left) { currentSpeed += SpeedPerStroke; }
         if (right) { currentSpeed += SpeedPerStroke; }
@@ -28,8 +28,7 @@ public class BoatController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        currentSpeed -= currentSpeed * VelocityDamping;
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, MaxSpeed);
+        currentSpeed = Mathf.Clamp(currentSpeed * (1f - VelocityDamping), 0, MaxSpeed);
         
         var position = transform.position + transform.forward * -currentSpeed * Time.fixedDeltaTime;
 
@@ -38,6 +37,7 @@ public class BoatController : MonoBehaviour {
         currentRotation = Mathf.Clamp(currentRotation, -MaxRotation, MaxRotation);
 
         var rigidBody = GetComponent<Rigidbody>();
+        rigidBody.velocity = Vector3.zero;
         rigidBody.MovePosition(position);
         rigidBody.MoveRotation(Quaternion.Euler(0, currentRotation, 0));
     }
