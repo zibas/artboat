@@ -24,12 +24,12 @@ public class BoatController : MonoBehaviour {
         if (left) { currentSpeed += SpeedPerStroke; }
         if (right) { currentSpeed += SpeedPerStroke; }
         
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, MaxSpeed);
+        currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
     }
 
     void FixedUpdate() {
-        currentSpeed = Mathf.Clamp(currentSpeed * (1f - VelocityDamping), 0, MaxSpeed);
-        
+        currentSpeed = Mathf.Clamp(currentSpeed * (1f - VelocityDamping), -MaxSpeed, MaxSpeed);
+
         var position = transform.position + transform.forward * -currentSpeed * Time.fixedDeltaTime;
 
         currentTorque -= currentTorque * RotationDamping;
@@ -41,4 +41,13 @@ public class BoatController : MonoBehaviour {
         rigidBody.MovePosition(position);
         rigidBody.MoveRotation(Quaternion.Euler(0, currentRotation, 0));
     }
+
+    // I: Slow the boat down if it hits a non-powerup:
+    void OnCollisionEnter (Collision col) {
+        if(col.gameObject.tag != "Pickup") {
+            currentSpeed*=-0.5f;
+             Debug.Log("Hit!");
+        }
+    }
+
 }
