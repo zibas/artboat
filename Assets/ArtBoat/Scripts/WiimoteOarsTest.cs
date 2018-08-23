@@ -9,6 +9,8 @@ public class WiimoteOarsTest : MonoBehaviour
 
     public Animator oar1Animator;
 
+    public UnityEngine.UI.Text text;
+
     // Use this for initialization
     void Start()
     {
@@ -19,26 +21,24 @@ public class WiimoteOarsTest : MonoBehaviour
     void Update()
     {
 
-        if (oars.oars[0].isPaddling)
-        {
-            switch (oars.oars[0].direction)
+            string s = "Oars:\n";
+            foreach(var oar in oars.oars)
             {
-                case WiimoteOars.DIRECTIONS.FORWARDS:
-                    oar1Animator.SetBool("Forwards", true);
-                    oar1Animator.SetBool("Backwards", false);
-                    break;
-                case WiimoteOars.DIRECTIONS.BACKWARDS:
-                    oar1Animator.SetBool("Forwards", false);
-                    oar1Animator.SetBool("Backwards", true);
-                    break;
-            }
-        }
-        else
-        {
-            oar1Animator.SetBool("Forwards", false);
-            oar1Animator.SetBool("Backwards", false);
+                s += "\nOar: " + oar.index + ": ";
+                if (oar.inWater)
+                {
+                    s += "In Water ";
+                }
+                if (oar.isPaddling)
+                {
+                    s += "Paddling " + oar.direction;
+                }
 
-        }
+              
+            }
+
+            text.text = s;
+
     }
 
 }

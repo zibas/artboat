@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using WiimoteApi;
 
 public class WiimoteOars : MonoBehaviour
 {
     public Oar[] oars;
-
-    private int oarCount = 4;
 
     public float speedMultiplier = 1;
 
@@ -18,81 +16,111 @@ public class WiimoteOars : MonoBehaviour
 
     public enum DIRECTIONS { FORWARDS, BACKWARDS };
 
+    int totalRemotes = 0;
+
+    List<int> activeWiimotes = new List<int>();
+
+
+    public int paddleStateFramesToAverage = 20;
     [System.Serializable]
     public class Oar
     {
+        public bool leftSide = true;
+        public int index = 0;
         public DIRECTIONS direction;
         public Vector3 acceleration;
         public float angle;
         public bool enabled = false;
         public float speed = 0;
         public bool inWater = false;
-
         public float smoothSpeed;
-
         public float smoothTime = 0.3F;
         public float yVelocity = 0.0F;
-
         public bool isRotating = false;
-
         public bool isPaddling = false;
+        public Queue<int> paddlingStateQueue = new Queue<int>();
+
+    }
+
+    void OnEnable()
+    {
+        Wii.OnDiscoveryFailed += OnDiscoveryFailed;
+        Wii.OnWiimoteDiscovered += OnWiimoteDiscovered;
+        Wii.OnWiimoteDisconnected += OnWiimoteDisconnected;
+    }
+
+    void OnDisable()
+    {
+        Wii.OnDiscoveryFailed -= OnDiscoveryFailed;
+        Wii.OnWiimoteDiscovered -= OnWiimoteDiscovered;
+        Wii.OnWiimoteDisconnected -= OnWiimoteDisconnected;
+    }
+
+    public void BeginSearch()
+    {
+        //searching = true;
+        Wii.StartSearch();
+        Debug.Log("I'm looking.");
+        Time.timeScale = 1.0f;
+    }
+
+    public void OnDiscoveryFailed(int i)
+    {
+        Debug.Log("Error:" + i + ". Try Again.");
+    }
+
+    public void OnWiimoteDiscovered(int thisRemote)
+    {
+        Debug.Log("found this one: " + thisRemote);
+        activeWiimotes.Add(thisRemote);
+    }
+
+    public void OnWiimoteDisconnected(int whichRemote)
+    {
+        Debug.Log("lost this one: " + whichRemote);
     }
 
     public void Initialize(int count = 4)
     {
-        oarCount = count;
-        WiimoteManager.FindWiimotes();
-
-        if (WiimoteManager.Wiimotes.Count < oarCount)
-        {
-            Debug.LogError("Could not find " + oarCount + " wiimotes");
-            return;
-        }
-
-        oars = new Oar[oarCount];
-        for (int i = 0; i < oarCount; i++)
+        BeginSearch();
+        oars = new Oar[count];
+        for (int i = 0; i < count; i++)
         {
             oars[i] = new Oar();
+            oars[i].index = i;
         }
-
-        foreach (var wiimote in WiimoteManager.Wiimotes)
-        {
-            Debug.Log("Enable accelerator on " + wiimote);
-            wiimote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL);
-        }
-
-        //WiimoteManager.Wiimotes[0];
+      
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        if (!WiimoteManager.HasWiimote()) { return; }
-        if (WiimoteManager.Wiimotes.Count < oarCount)
+        totalRemotes = Wii.GetRemoteCount();
+
+        if(totalRemotes < 4)
         {
-            Debug.LogError("Do not have " + oarCount + " wiimotes");
-            return;
+          //  BeginSearch();
         }
-        for (int i = 0; i < oarCount; i++)
+
+
+        for (int i = 0; i < 4; i++)
         {
-            var wiimote = WiimoteManager.Wiimotes[i];
-            int ret;
-            do
+            if (Wii.IsActive(i))
             {
-                ret = wiimote.ReadWiimoteData();
-            } while (ret > 0);
-
-            ParseData(oars[i], wiimote);
-
+                Vector3 wiiAccel = Wii.GetWiimoteAcceleration(i);
+                ParseData(oars[i], wiiAccel);
+            }
         }
     }
-
-    private void ParseData(Oar oar, Wiimote wiimote)
+    
+    private void ParseData(Oar oar, Vector3 acceleration)
     {
-        Vector3 acceleration = GetAccelVector(wiimote);
         Vector3 accelerationDelta = (oar.acceleration - acceleration) * Time.deltaTime;
         oar.acceleration = acceleration;
+        oar.inWater = acceleration.y < -0.2f;
+        
+        oar.isRotating = Mathf.Abs(accelerationDelta.x) > individualAxisThreshold && Mathf.Abs(accelerationDelta.z) > individualAxisThreshold;
 
-        oar.isRotating = Mathf.Abs(accelerationDelta.x) > individualAxisThreshold && Mathf.Abs(accelerationDelta.z) > individualAxisThreshold && Mathf.Abs(accelerationDelta.y) < maxYAccelerationDeltaForRotation;
+        
         float radius = Mathf.Sqrt(oar.acceleration.x * oar.acceleration.x + oar.acceleration.z * oar.acceleration.z);
         float angle = Mathf.Atan2(oar.acceleration.z, oar.acceleration.x) * Mathf.Rad2Deg;
         float angleDelta = (oar.angle - angle) * Time.deltaTime;
@@ -127,16 +155,32 @@ public class WiimoteOars : MonoBehaviour
         }
 
         oar.smoothSpeed = Mathf.SmoothDamp(oar.smoothSpeed, oar.speed, ref oar.yVelocity, oar.smoothTime);
-        oar.inWater = Mathf.Abs(oar.smoothSpeed) > inWaterSpeedThreshold;
+       // oar.inWater = Mathf.Abs(oar.smoothSpeed) > inWaterSpeedThreshold;
         if (oar.inWater)
         {
-            oar.direction = oar.smoothSpeed > 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
+            if (oar.leftSide)
+            {
+                oar.direction = oar.smoothSpeed > 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
+
+            } else
+            {
+                oar.direction = oar.smoothSpeed < 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
+
+            }
         }
 
-        oar.isPaddling = oar.inWater && oar.isRotating;
+        oar.paddlingStateQueue.Enqueue(oar.inWater && oar.isRotating ? 1 : 0);
+        if(oar.paddlingStateQueue.Count > paddleStateFramesToAverage)
+        {
+            // relies on fixed update for speed consistency
+            oar.paddlingStateQueue.Dequeue();
+        }
+        oar.isPaddling = oar.paddlingStateQueue.Average() > 0.5f;
+        
+     //   oar.isPaddling = oar.inWater && oar.isRotating;
     }
-
-
+    
+    /*
     private Vector3 GetAccelVector(Wiimote wiimote)
     {
         float accel_x;
@@ -150,5 +194,5 @@ public class WiimoteOars : MonoBehaviour
 
         return new Vector3(accel_x, accel_y, accel_z).normalized;
     }
-
+    */
 }

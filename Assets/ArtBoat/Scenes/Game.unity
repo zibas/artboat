@@ -1178,13 +1178,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 191850916}
-  m_LocalRotation: {x: 0.46688923, y: -0, z: -0, w: 0.8843158}
-  m_LocalPosition: {x: -0.58, y: 15.18, z: 22.66}
+  m_LocalRotation: {x: 0, y: 0.8843163, z: -0.46688834, w: 0}
+  m_LocalPosition: {x: -0.58, y: 15.18, z: 149.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 55.665, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55.665, y: 180, z: 0}
 --- !u!114 &191850921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Boat: {fileID: 475458487}
-  Offset: {x: 0, y: 15, z: -25}
+  Offset: {x: 0, y: 15, z: 7}
 --- !u!1 &226760414
 GameObject:
   m_ObjectHideFlags: 0
@@ -52468,7 +52468,7 @@ Prefab:
     - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
         type: 2}
       propertyPath: TorquePerStroke
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
         type: 2}
@@ -52478,12 +52478,22 @@ Prefab:
     - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
         type: 2}
       propertyPath: VelocityDamping
-      value: 0.001
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
         type: 2}
       propertyPath: RotationDamping
-      value: 0.01
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
+        type: 2}
+      propertyPath: oars
+      value: 
+      objectReference: {fileID: 1679274574}
+    - target: {fileID: 114185082675921274, guid: 76b0651097d0abb4a81995a6c28a3389,
+        type: 2}
+      propertyPath: MaxRotation
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76b0651097d0abb4a81995a6c28a3389, type: 2}
@@ -53715,6 +53725,64 @@ Transform:
   m_PrefabParentObject: {fileID: 4207401275094340, guid: 9a52ba64c3a0abf49ad9515917ade04b,
     type: 2}
   m_PrefabInternal: {fileID: 1634853412}
+--- !u!1 &1679274572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1679274575}
+  - component: {fileID: 1679274574}
+  - component: {fileID: 1679274573}
+  m_Layer: 0
+  m_Name: WiiOars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1679274573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679274572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba9559d80dc84c2f92d7aa30050c217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1679274574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679274572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2228fe352bc567641856cea2f7bb5ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oars: []
+  speedMultiplier: 100
+  individualAxisThreshold: 0.0001
+  maxYAccelerationDeltaForRotation: 0.1
+  inWaterSpeedThreshold: 2
+  paddleStateFramesToAverage: 20
+--- !u!4 &1679274575
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679274572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 373.18, y: 323.91, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698286140
 GameObject:
   m_ObjectHideFlags: 0

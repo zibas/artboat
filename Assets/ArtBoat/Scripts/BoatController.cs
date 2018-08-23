@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class BoatController : MonoBehaviour {
+public class BoatController : MonoBehaviour
+{
     [SerializeField] float MaxSpeed = 4;
     [SerializeField] float MaxRotation = 45;
 
@@ -9,25 +10,89 @@ public class BoatController : MonoBehaviour {
     [SerializeField] float SpeedPerStroke = 1;
     [SerializeField] float VelocityDamping = 0.01f;
     [SerializeField] float RotationDamping = 0.01f;
-    
+
     float currentRotation;
     float currentTorque;
     float currentSpeed;
 
-    void Update() {
-        bool left = Input.GetKeyUp(KeyCode.LeftArrow);
-        bool right = Input.GetKeyUp(KeyCode.RightArrow);
+    public float updateDelay = 0.1f;
+    float inputClock = 0;
 
-        if (left) { currentTorque -= TorquePerStroke; }
-        if (right) { currentTorque += TorquePerStroke; }
+    public WiimoteOars oars;
 
-        if (left) { currentSpeed += SpeedPerStroke; }
-        if (right) { currentSpeed += SpeedPerStroke; }
-        
-        currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
+    public float keyboardAmplification = 10;
+
+    public void Start()
+    {
+        oars.Initialize();
     }
 
-    void FixedUpdate() {
+    void Update()
+    {
+
+        inputClock += Time.deltaTime;
+        if (inputClock > -updateDelay)
+        {
+            foreach (var oar in oars.oars)
+            {
+                if (oar.index == 0 || oar.index == 2)
+                {
+                    oar.leftSide = false;
+                }
+
+                if (oar.isPaddling)
+                {
+                    if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
+                    {
+                        if (oar.leftSide)
+                        {
+                            currentTorque -= TorquePerStroke;
+
+                        }
+                        else
+                        {
+                            currentTorque += TorquePerStroke;
+
+                        }
+                        currentSpeed += SpeedPerStroke;
+                    }
+                    else
+                    {
+                        if (oar.leftSide)
+                        {
+                            currentTorque += TorquePerStroke;
+
+                        }
+                        else
+                        {
+                            currentTorque -= TorquePerStroke;
+
+                        }
+                        currentSpeed -= SpeedPerStroke;
+                    }
+                }
+
+            }
+
+
+
+            bool right = Input.GetKeyUp(KeyCode.LeftArrow);
+            bool left = Input.GetKeyUp(KeyCode.RightArrow);
+
+            if (left) { currentTorque -= TorquePerStroke * keyboardAmplification; }
+            if (right) { currentTorque += TorquePerStroke * keyboardAmplification; }
+
+            if (left) { currentSpeed += SpeedPerStroke * keyboardAmplification; }
+            if (right) { currentSpeed += SpeedPerStroke * keyboardAmplification; }
+
+
+
+            currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
+        }
+    }
+
+    void FixedUpdate()
+    {
         currentSpeed = Mathf.Clamp(currentSpeed * (1f - VelocityDamping), -MaxSpeed, MaxSpeed);
 
         var position = transform.position + transform.forward * -currentSpeed * Time.fixedDeltaTime;
@@ -43,10 +108,12 @@ public class BoatController : MonoBehaviour {
     }
 
     // I: Slow the boat down if it hits a non-powerup:
-    void OnCollisionEnter (Collision col) {
-        if(col.gameObject.tag != "Pickup") {
-            currentSpeed*=-0.5f;
-             Debug.Log("Hit!");
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag != "Pickup")
+        {
+            currentSpeed *= -0.5f;
+            Debug.Log("Hit!");
         }
     }
 
