@@ -22,6 +22,10 @@ public class BoatController : MonoBehaviour
 
     public float keyboardAmplification = 10;
 
+    float findClock = 0;
+    float findInterval = 1;
+
+
     public void Start()
     {
         oars.Initialize();
@@ -30,6 +34,12 @@ public class BoatController : MonoBehaviour
     void Update()
     {
 
+        findClock += Time.deltaTime;
+        if(findClock >= findInterval)
+        {
+            Wii.StartSearch();
+            findClock = 0;
+        }
         inputClock += Time.deltaTime;
         if (inputClock > -updateDelay)
         {
