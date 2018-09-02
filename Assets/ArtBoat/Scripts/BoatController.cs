@@ -12,7 +12,7 @@ public class BoatController : MonoBehaviour
     [SerializeField] float RotationDamping = 0.01f;
 
     [Tooltip("Velocity will be multiplied by this value on a non-powerup collision (ie, how much to slow down on hitting a wall)")]
-    [SerializeField] float CollisionVelocityMultiplier = 0.75f;
+    [SerializeField] float BaseCollisionVelocityMultiplier = 0.75f;
 
     float currentRotation;
     float currentTorque;
@@ -124,7 +124,7 @@ public class BoatController : MonoBehaviour
     {
         if (col.gameObject.tag != "Pickup")
         {
-            currentSpeed *= CollisionVelocityMultiplier;
+            currentSpeed *= BaseCollisionVelocityMultiplier;
             Debug.Log("Hit!");
         }
     }

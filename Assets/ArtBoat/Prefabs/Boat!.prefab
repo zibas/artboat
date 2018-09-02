@@ -2489,7 +2489,7 @@ MonoBehaviour:
   SpeedPerStroke: 0.1
   VelocityDamping: 0.01
   RotationDamping: 0.1
-  CollisionVelocityMultiplier: 0.75
+  CollisionVelocityMultiplier: 0.5
   updateDelay: 0.1
   oars: {fileID: 0}
   keyboardAmplification: 10

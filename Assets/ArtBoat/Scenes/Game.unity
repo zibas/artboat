@@ -571,7 +571,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-2624672
+  m_Name: pb_Mesh65974
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -1798,12 +1798,13 @@ GameObject:
   - component: {fileID: 308358726}
   - component: {fileID: 308358725}
   - component: {fileID: 308358724}
+  - component: {fileID: 308358730}
   m_Layer: 0
-  m_Name: Island
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!64 &308358724
 MeshCollider:
@@ -2617,8 +2618,60 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1333081993}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308358730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 308358723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &321786769
 Prefab:
   m_ObjectHideFlags: 0
@@ -4453,7 +4506,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1333081993}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &410802824
 Prefab:
@@ -4548,12 +4601,13 @@ GameObject:
   - component: {fileID: 441061525}
   - component: {fileID: 441061524}
   - component: {fileID: 441061523}
+  - component: {fileID: 441061528}
   m_Layer: 0
-  m_Name: Island (6)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &441061522
 Transform:
@@ -5569,6 +5623,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &441061528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441061521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &445316361
 GameObject:
   m_ObjectHideFlags: 0
@@ -5797,7 +5903,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-2135824
+  m_Name: pb_Mesh65598
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -5927,7 +6033,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-2139482
+  m_Name: pb_Mesh65912
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -6375,7 +6481,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-2859826
+  m_Name: pb_Mesh65738
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -6505,7 +6611,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh96290
+  m_Name: pb_Mesh65848
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -7038,12 +7144,13 @@ GameObject:
   - component: {fileID: 817779221}
   - component: {fileID: 817779220}
   - component: {fileID: 817779219}
+  - component: {fileID: 817779224}
   m_Layer: 0
-  m_Name: Island (3)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &817779218
 Transform:
@@ -8659,6 +8766,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &817779224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 817779217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &831246353
 GameObject:
   m_ObjectHideFlags: 0
@@ -8939,7 +9098,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh95272
+  m_Name: pb_Mesh65724
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -9081,12 +9240,13 @@ GameObject:
   - component: {fileID: 926240700}
   - component: {fileID: 926240699}
   - component: {fileID: 926240698}
+  - component: {fileID: 926240703}
   m_Layer: 0
-  m_Name: Island (2)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &926240697
 Transform:
@@ -10102,6 +10262,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &926240703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 926240696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &939967688
 Prefab:
   m_ObjectHideFlags: 0
@@ -11111,7 +11323,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh26524
+  m_Name: pb_Mesh65456
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -11355,12 +11567,13 @@ GameObject:
   - component: {fileID: 1303721302}
   - component: {fileID: 1303721301}
   - component: {fileID: 1303721300}
+  - component: {fileID: 1303721305}
   m_Layer: 0
-  m_Name: Island (7)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1303721299
 Transform:
@@ -12976,6 +13189,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &1303721305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303721298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1307911366
 GameObject:
   m_ObjectHideFlags: 0
@@ -12989,12 +13254,13 @@ GameObject:
   - component: {fileID: 1307911370}
   - component: {fileID: 1307911369}
   - component: {fileID: 1307911368}
+  - component: {fileID: 1307911373}
   m_Layer: 0
-  m_Name: Island (8)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1307911367
 Transform:
@@ -14010,6 +14276,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &1307911373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1307911366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1320569802
 Prefab:
   m_ObjectHideFlags: 0
@@ -14097,9 +14415,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1456924277}
+  - {fileID: 398073896}
   - {fileID: 308358729}
   - {fileID: 1670748699}
-  - {fileID: 398073896}
   - {fileID: 926240697}
   - {fileID: 817779218}
   - {fileID: 1801693331}
@@ -14175,7 +14493,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh119930
+  m_Name: pb_Mesh65404
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -14378,7 +14696,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-2100820
+  m_Name: pb_Mesh65630
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -52841,12 +53159,13 @@ GameObject:
   - component: {fileID: 1670748696}
   - component: {fileID: 1670748695}
   - component: {fileID: 1670748694}
+  - component: {fileID: 1670748700}
   m_Layer: 0
-  m_Name: Island
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!64 &1670748694
 MeshCollider:
@@ -53660,8 +53979,60 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1333081993}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1670748700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670748693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1673269375
 Prefab:
   m_ObjectHideFlags: 0
@@ -54207,12 +54578,13 @@ GameObject:
   - component: {fileID: 1801693334}
   - component: {fileID: 1801693333}
   - component: {fileID: 1801693332}
+  - component: {fileID: 1801693337}
   m_Layer: 0
-  m_Name: Island (4)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1801693331
 Transform:
@@ -55428,6 +55800,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &1801693337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1801693330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!4 &1803324522 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: df7495afdce80f54694ff3d2fae828ac, type: 3}
@@ -55736,7 +56160,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh92966
+  m_Name: pb_Mesh65478
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -56145,12 +56569,13 @@ GameObject:
   - component: {fileID: 2055316348}
   - component: {fileID: 2055316347}
   - component: {fileID: 2055316346}
+  - component: {fileID: 2055316351}
   m_Layer: 0
-  m_Name: Island (5)
+  m_Name: IslandObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 41
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2055316345
 Transform:
@@ -57166,6 +57591,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityType: 0
+--- !u!114 &2055316351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2055316344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a29536ce8778154888f271f182512b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VelocityPenalty: 0.5
+  SinkTime: 1.2
+  ColliderDisableTime: 0.5
+  SinkDistance: 3
+  SinkAngleMax: 70
+  SinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SinkAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.25
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &2067139136
 GameObject:
   m_ObjectHideFlags: 0
