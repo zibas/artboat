@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1743118431}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964143, b: 0.5748158, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -15059,7 +15059,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1456924271}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4e6158e721ca7df46b13cbf4ff5aaa0e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -52984,6 +52984,12 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0.00000011920929
       objectReference: {fileID: 0}
+    - target: {fileID: 136210978599725576, guid: 76b0651097d0abb4a81995a6c28a3389,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 845c80e2e16d3784db02d69316cc3c8d,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 76b0651097d0abb4a81995a6c28a3389, type: 2}
   m_IsPrefabParent: 0
@@ -56439,7 +56445,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh22006
+  m_Name: pb_Mesh17928
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2

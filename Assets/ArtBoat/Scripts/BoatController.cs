@@ -11,6 +11,9 @@ public class BoatController : MonoBehaviour
     [SerializeField] float VelocityDamping = 0.01f;
     [SerializeField] float RotationDamping = 0.01f;
 
+    [Tooltip("Velocity will be multiplied by this value on a non-powerup collision (ie, how much to slow down on hitting a wall)")]
+    [SerializeField] float CollisionVelocityMultiplier = 0.75f;
+
     float currentRotation;
     float currentTorque;
     float currentSpeed;
@@ -112,8 +115,7 @@ public class BoatController : MonoBehaviour
         currentRotation = Mathf.Clamp(currentRotation, -MaxRotation, MaxRotation);
 
         var rigidBody = GetComponent<Rigidbody>();
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.MovePosition(position);
+        rigidBody.velocity = transform.forward * -currentSpeed;
         rigidBody.MoveRotation(Quaternion.Euler(0, currentRotation, 0));
     }
 
@@ -122,7 +124,7 @@ public class BoatController : MonoBehaviour
     {
         if (col.gameObject.tag != "Pickup")
         {
-            currentSpeed *= -0.5f;
+            currentSpeed *= CollisionVelocityMultiplier;
             Debug.Log("Hit!");
         }
     }
