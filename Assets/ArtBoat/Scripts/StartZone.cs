@@ -5,7 +5,22 @@ using UnityEngine;
 public class StartZone : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
-        UI ui = FindObjectOfType<UI>();
-        ui.StartTime();
+        Rigidbody otherBody = other.attachedRigidbody;
+        if(otherBody != null)
+        {
+            BoatController boat = otherBody.GetComponent<BoatController>();
+
+            if(boat != null)
+            {
+                boat.riverForceEnabled = true;
+
+                UI ui = FindObjectOfType<UI>();
+
+                if(ui != null)
+                {
+                    ui.StartTime();
+                }
+            }
+        }
     }
 }

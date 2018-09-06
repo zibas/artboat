@@ -10,6 +10,10 @@ public class BoatController : MonoBehaviour
     [SerializeField] float SpeedPerStroke = 1;
     [SerializeField] float VelocityDamping = 0.01f;
     [SerializeField] float RotationDamping = 0.01f;
+    [SerializeField] float BackwardsSpeedMultiplier = 0.25f;
+    [SerializeField] float BackwardsTorqueMultiplier = 1.5f;
+
+    [SerializeField] Vector3 RiverFlowForce = new Vector3(0f, 0f, -0.47f);
 
     [Tooltip("Velocity will be multiplied by this value on a non-powerup collision (ie, how much to slow down on hitting a wall)")]
     [SerializeField] float BaseCollisionVelocityMultiplier = 0.75f;
@@ -28,6 +32,9 @@ public class BoatController : MonoBehaviour
     float findClock = 0;
     float findInterval = 1;
 
+    //we only want the river to add force after we're past the starting line
+    [HideInInspector]
+    public bool riverForceEnabled = false;
 
     public void Start()
     {
@@ -36,7 +43,6 @@ public class BoatController : MonoBehaviour
 
     void Update()
     {
-
         findClock += Time.deltaTime;
         if(findClock >= findInterval)
         {
@@ -73,21 +79,19 @@ public class BoatController : MonoBehaviour
                     {
                         if (oar.leftSide)
                         {
-                            currentTorque += TorquePerStroke;
+                            currentTorque += TorquePerStroke * BackwardsTorqueMultiplier;
 
                         }
                         else
                         {
-                            currentTorque -= TorquePerStroke;
+                            currentTorque -= TorquePerStroke * BackwardsTorqueMultiplier;
 
                         }
-                        currentSpeed -= SpeedPerStroke;
+                        currentSpeed -= SpeedPerStroke * BackwardsSpeedMultiplier;
                     }
                 }
 
             }
-
-
 
             bool right = Input.GetKeyUp(KeyCode.LeftArrow);
             bool left = Input.GetKeyUp(KeyCode.RightArrow);
@@ -97,8 +101,6 @@ public class BoatController : MonoBehaviour
 
             if (left) { currentSpeed += SpeedPerStroke * keyboardAmplification; }
             if (right) { currentSpeed += SpeedPerStroke * keyboardAmplification; }
-
-
 
             currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
         }
@@ -116,6 +118,10 @@ public class BoatController : MonoBehaviour
 
         var rigidBody = GetComponent<Rigidbody>();
         rigidBody.velocity = transform.forward * -currentSpeed;
+        if(riverForceEnabled)
+        {
+            rigidBody.velocity += RiverFlowForce;
+        }
         rigidBody.MoveRotation(Quaternion.Euler(0, currentRotation, 0));
     }
 
