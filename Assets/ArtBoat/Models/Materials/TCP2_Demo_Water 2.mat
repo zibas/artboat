@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TCP2_Demo_Water 1
+  m_Name: TCP2_Demo_Water 2
   m_Shader: {fileID: 4800000, guid: 931c98f5451d03f4e83ec061ccc91c8a, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -65,12 +65,12 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthDistance: 0.31
+    - _DepthDistance: 1.73
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FoamSmooth: 0
-    - _FoamSpread: 0.24
-    - _FoamStrength: 0.713
+    - _FoamSpread: 1.66
+    - _FoamStrength: 0.725
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -103,4 +103,4 @@ Material:
     - _FoamSpeed: {r: -1, g: -1, b: -2, a: -2}
     - _HColor: {r: 0.29844293, g: 0.42327884, b: 0.88235295, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 0.078431375}
-    - _SColor: {r: 1, g: 1, b: 1, a: 0}
+    - _SColor: {r: 0.0934256, g: 0.104307346, b: 0.17647058, a: 1}
