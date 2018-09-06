@@ -7,26 +7,36 @@ ModelImporter:
     100002: pineapple
     100004: pineapple_leaf1
     100006: pineapple_leaf2
+    100008: pineapple_leaf1.001
+    100010: pineapple_leaf2.001
     400000: //RootNode
     400002: pineapple
     400004: pineapple_leaf1
     400006: pineapple_leaf2
+    400008: pineapple_leaf1.001
+    400010: pineapple_leaf2.001
     2100000: Pineapple
     2300000: pineapple
     2300002: pineapple_leaf1
     2300004: pineapple_leaf2
+    2300006: pineapple_leaf1.001
+    2300008: pineapple_leaf2.001
     3300000: pineapple
     3300002: pineapple_leaf1
     3300004: pineapple_leaf2
+    3300006: pineapple_leaf1.001
+    3300008: pineapple_leaf2.001
     4300000: pineapple_leaf2
     4300002: pineapple_leaf1
     4300004: pineapple
+    4300006: pineapple_leaf1.001
+    4300008: pineapple_leaf2.001
   externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 35c2387a457592d4b9fd9cbb992361aa
+guid: 9bcafe43c4c6c284098bc86e6a51de05
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: tree
+    2100000: fish
     2300000: //RootNode
     3300000: //RootNode
-    4300000: tree
+    4300000: fish
   externalObjects: {}
   materials:
     importMaterials: 1
