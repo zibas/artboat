@@ -8,9 +8,6 @@ public class OarAnimator : MonoBehaviour
     [SerializeField] Transform BackRight;
     [SerializeField] Transform FrontRight;
 
-    [SerializeField] float backStrokeRotation = 30;
-    [SerializeField] float noStrokeRotation = 0;
-    [SerializeField] float frontStrokeRotation = -30;
 
     public WiimoteOars oars;
 
@@ -18,10 +15,11 @@ public class OarAnimator : MonoBehaviour
 
     void Update()
     {
+        int leftSide = 0;
+        int rightSide = 0;
         if (oars.totalRemotes > 0)
         {
-            int leftSide = 0;
-            int rightSide = 0;
+          
            
             
                 foreach (var oar in oars.oars)
@@ -60,9 +58,25 @@ public class OarAnimator : MonoBehaviour
         }
         else // just keyboard
         {
-            FrontLeft.localRotation = BackLeft.localRotation = Quaternion.Euler(0, Input.GetKey(KeyCode.LeftArrow) ? frontStrokeRotation : backStrokeRotation, 0);
-
-            FrontRight.localRotation = BackRight.localRotation = Quaternion.Euler(0, Input.GetKey(KeyCode.RightArrow) ? -frontStrokeRotation : -backStrokeRotation, 0);
+            if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            {
+                leftSide = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            {
+                rightSide = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                leftSide = -1;
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                rightSide = -1;
+            }
+            animator.SetInteger("Left Direction", leftSide);
+            animator.SetInteger("Right Direction", rightSide);
+          
         }
     }
 
