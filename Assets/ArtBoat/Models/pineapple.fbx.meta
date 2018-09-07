@@ -9,29 +9,44 @@ ModelImporter:
     100006: pineapple_leaf2
     100008: pineapple_leaf1.001
     100010: pineapple_leaf2.001
+    100012: pineapple_leaf1.002
+    100014: pineapple_leaf1.003
     400000: //RootNode
     400002: pineapple
     400004: pineapple_leaf1
     400006: pineapple_leaf2
     400008: pineapple_leaf1.001
     400010: pineapple_leaf2.001
+    400012: pineapple_leaf1.002
+    400014: pineapple_leaf1.003
     2100000: Pineapple
     2300000: pineapple
     2300002: pineapple_leaf1
     2300004: pineapple_leaf2
     2300006: pineapple_leaf1.001
     2300008: pineapple_leaf2.001
+    2300010: pineapple_leaf1.002
+    2300012: pineapple_leaf1.003
     3300000: pineapple
     3300002: pineapple_leaf1
     3300004: pineapple_leaf2
     3300006: pineapple_leaf1.001
     3300008: pineapple_leaf2.001
+    3300010: pineapple_leaf1.002
+    3300012: pineapple_leaf1.003
     4300000: pineapple_leaf2
     4300002: pineapple_leaf1
     4300004: pineapple
     4300006: pineapple_leaf1.001
     4300008: pineapple_leaf2.001
-  externalObjects: {}
+    4300010: pineapple_leaf1.003
+    4300012: pineapple_leaf1.002
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pineapple
+    second: {fileID: 2100000, guid: 607288535c3c47d48a0cd9b4260188ee, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
