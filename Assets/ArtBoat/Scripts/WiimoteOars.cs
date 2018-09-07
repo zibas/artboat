@@ -16,16 +16,19 @@ public class WiimoteOars : MonoBehaviour
 
     public enum DIRECTIONS { FORWARDS, BACKWARDS };
 
-    int totalRemotes = 0;
+    public int totalRemotes = 0;
 
     List<int> activeWiimotes = new List<int>();
+
+    public float angleToBeInWater = -0.2f;
 
 
     public int paddleStateFramesToAverage = 20;
     [System.Serializable]
     public class Oar
     {
-        public bool leftSide = true;
+        public enum SIDES { RIGHT, LEFT};
+        public SIDES side = SIDES.RIGHT;
         public int index = 0;
         public DIRECTIONS direction;
         public Vector3 acceleration;
@@ -88,6 +91,10 @@ public class WiimoteOars : MonoBehaviour
         {
             oars[i] = new Oar();
             oars[i].index = i;
+            if (i == 0 || i == 2)
+            {
+                oars[i].side = Oar.SIDES.LEFT;
+            }
         }
       
     }
@@ -95,12 +102,6 @@ public class WiimoteOars : MonoBehaviour
     public void FixedUpdate()
     {
         totalRemotes = Wii.GetRemoteCount();
-
-        if(totalRemotes < 4)
-        {
-          //  BeginSearch();
-        }
-
 
         for (int i = 0; i < 4; i++)
         {
@@ -116,7 +117,7 @@ public class WiimoteOars : MonoBehaviour
     {
         Vector3 accelerationDelta = (oar.acceleration - acceleration) * Time.deltaTime;
         oar.acceleration = acceleration;
-        oar.inWater = acceleration.y < -0.2f;
+        oar.inWater = acceleration.y < angleToBeInWater;
         
         oar.isRotating = Mathf.Abs(accelerationDelta.x) > individualAxisThreshold && Mathf.Abs(accelerationDelta.z) > individualAxisThreshold;
 
@@ -128,7 +129,6 @@ public class WiimoteOars : MonoBehaviour
 
         if (oar.isRotating)
         {
-
             // Probably crossed the line between 180 and -180
             if (Mathf.Abs(angleDelta) > 1)
             {
@@ -145,20 +145,12 @@ public class WiimoteOars : MonoBehaviour
         {
             oar.speed = 0;
         }
-
-        if(oar.speed > 100)
-        {
-            Debug.LogWarning("Speed " + oar.speed + " angle " + oar.angle + " angle delta " + angleDelta);
-        } else
-        {
-          //  Debug.Log(angleDelta);
-        }
-
+        
         oar.smoothSpeed = Mathf.SmoothDamp(oar.smoothSpeed, oar.speed, ref oar.yVelocity, oar.smoothTime);
-       // oar.inWater = Mathf.Abs(oar.smoothSpeed) > inWaterSpeedThreshold;
+
         if (oar.inWater)
         {
-            if (oar.leftSide)
+            if (oar.side == Oar.SIDES.RIGHT)
             {
                 oar.direction = oar.smoothSpeed > 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
 
@@ -176,23 +168,7 @@ public class WiimoteOars : MonoBehaviour
             oar.paddlingStateQueue.Dequeue();
         }
         oar.isPaddling = oar.paddlingStateQueue.Average() > 0.5f;
-        
-     //   oar.isPaddling = oar.inWater && oar.isRotating;
+       
     }
-    
-    /*
-    private Vector3 GetAccelVector(Wiimote wiimote)
-    {
-        float accel_x;
-        float accel_y;
-        float accel_z;
-
-        float[] accel = wiimote.Accel.GetCalibratedAccelData();
-        accel_x = accel[0];
-        accel_y = -accel[2];
-        accel_z = -accel[1];
-
-        return new Vector3(accel_x, accel_y, accel_z).normalized;
-    }
-    */
+   
 }

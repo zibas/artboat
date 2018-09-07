@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ArtBoat/Scenes/Game.unity
+    guid: 5c668568e67b0024abd7ae0520df56ff

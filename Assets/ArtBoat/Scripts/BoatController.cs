@@ -53,17 +53,13 @@ public class BoatController : MonoBehaviour
         if (inputClock > -updateDelay)
         {
             foreach (var oar in oars.oars)
-            {
-                if (oar.index == 0 || oar.index == 2)
-                {
-                    oar.leftSide = false;
-                }
+            {            
 
                 if (oar.isPaddling)
                 {
                     if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
                     {
-                        if (oar.leftSide)
+                        if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
                         {
                             currentTorque -= TorquePerStroke;
 
@@ -77,7 +73,7 @@ public class BoatController : MonoBehaviour
                     }
                     else
                     {
-                        if (oar.leftSide)
+                        if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
                         {
                             currentTorque += TorquePerStroke * BackwardsTorqueMultiplier;
 
