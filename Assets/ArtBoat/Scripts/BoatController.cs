@@ -3,20 +3,30 @@
 [RequireComponent(typeof(Rigidbody))]
 public class BoatController : MonoBehaviour
 {
-    [SerializeField] float MaxSpeed = 4;
-    [SerializeField] float MaxRotation = 45;
+    [SerializeField]
+    float MaxSpeed = 4;
+    [SerializeField]
+    float MaxRotation = 45;
 
-    [SerializeField] float TorquePerStroke = 5;
-    [SerializeField] float SpeedPerStroke = 1;
-    [SerializeField] float VelocityDamping = 0.01f;
-    [SerializeField] float RotationDamping = 0.01f;
-    [SerializeField] float BackwardsSpeedMultiplier = 0.25f;
-    [SerializeField] float BackwardsTorqueMultiplier = 1.5f;
+    [SerializeField]
+    float TorquePerStroke = 5;
+    [SerializeField]
+    float SpeedPerStroke = 1;
+    [SerializeField]
+    float VelocityDamping = 0.01f;
+    [SerializeField]
+    float RotationDamping = 0.01f;
+    [SerializeField]
+    float BackwardsSpeedMultiplier = 0.25f;
+    [SerializeField]
+    float BackwardsTorqueMultiplier = 1.5f;
 
-    [SerializeField] Vector3 RiverFlowForce = new Vector3(0f, 0f, -0.47f);
+    [SerializeField]
+    Vector3 RiverFlowForce = new Vector3(0f, 0f, -0.47f);
 
     [Tooltip("Velocity will be multiplied by this value on a non-powerup collision (ie, how much to slow down on hitting a wall)")]
-    [SerializeField] float BaseCollisionVelocityMultiplier = 0.75f;
+    [SerializeField]
+    float BaseCollisionVelocityMultiplier = 0.75f;
 
     float currentRotation;
     float currentTorque;
@@ -44,7 +54,12 @@ public class BoatController : MonoBehaviour
     void Update()
     {
         findClock += Time.deltaTime;
-        if(findClock >= findInterval)
+
+        bool right = Input.GetKeyUp(KeyCode.LeftArrow);
+        bool left = Input.GetKeyUp(KeyCode.RightArrow);
+
+
+        if (findClock >= findInterval)
         {
             Wii.StartSearch();
             findClock = 0;
@@ -53,45 +68,61 @@ public class BoatController : MonoBehaviour
         if (inputClock > -updateDelay)
         {
             foreach (var oar in oars.oars)
-            {            
-
-                if (oar.isPaddling)
+            {
+                switch (oar.side)
                 {
-                    if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
-                    {
-                        if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
+                    case WiimoteOars.Oar.SIDES.LEFT:
+                    case WiimoteOars.Oar.SIDES.RIGHT:
+                        if (oar.isPaddling)
                         {
-                            currentTorque -= TorquePerStroke;
+                            if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
+                            {
+                                if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
+                                {
+                                    currentTorque -= TorquePerStroke;
 
+                                }
+                                else
+                                {
+                                    currentTorque += TorquePerStroke;
+
+                                }
+                                currentSpeed += SpeedPerStroke;
+                            }
+                            else
+                            {
+                                if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
+                                {
+                                    currentTorque += TorquePerStroke * BackwardsTorqueMultiplier;
+
+                                }
+                                else
+                                {
+                                    currentTorque -= TorquePerStroke * BackwardsTorqueMultiplier;
+
+                                }
+                                currentSpeed -= SpeedPerStroke * BackwardsSpeedMultiplier;
+                            }
                         }
-                        else
+                        break;
+                    case WiimoteOars.Oar.SIDES.MASTER:
+                        if (oar.GetButtonDown("RIGHT"))
                         {
-                            currentTorque += TorquePerStroke;
-
+                            left = true;
                         }
-                        currentSpeed += SpeedPerStroke;
-                    }
-                    else
-                    {
-                        if (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
+                        if (oar.GetButtonDown("LEFT"))
                         {
-                            currentTorque += TorquePerStroke * BackwardsTorqueMultiplier;
-
+                            right = true;
                         }
-                        else
+                        if(oar.GetButtonDown("A") && oar.GetButtonDown("B"))
                         {
-                            currentTorque -= TorquePerStroke * BackwardsTorqueMultiplier;
-
+                            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
                         }
-                        currentSpeed -= SpeedPerStroke * BackwardsSpeedMultiplier;
-                    }
+                        break;
                 }
-
             }
 
-            bool right = Input.GetKeyUp(KeyCode.LeftArrow);
-            bool left = Input.GetKeyUp(KeyCode.RightArrow);
-
+        
             if (left) { currentTorque -= TorquePerStroke * keyboardAmplification; }
             if (right) { currentTorque += TorquePerStroke * keyboardAmplification; }
 
@@ -114,7 +145,7 @@ public class BoatController : MonoBehaviour
 
         var rigidBody = GetComponent<Rigidbody>();
         rigidBody.velocity = transform.forward * -currentSpeed;
-        if(riverForceEnabled)
+        if (riverForceEnabled)
         {
             rigidBody.velocity += RiverFlowForce;
         }

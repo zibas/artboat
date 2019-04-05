@@ -2,11 +2,15 @@
 
 public class OarAnimator : MonoBehaviour
 {
-    [SerializeField] Transform BackLeft;
-    [SerializeField] Transform FrontLeft;
+    [SerializeField]
+    Transform BackLeft;
+    [SerializeField]
+    Transform FrontLeft;
 
-    [SerializeField] Transform BackRight;
-    [SerializeField] Transform FrontRight;
+    [SerializeField]
+    Transform BackRight;
+    [SerializeField]
+    Transform FrontRight;
 
 
     public WiimoteOars oars;
@@ -19,37 +23,39 @@ public class OarAnimator : MonoBehaviour
         int rightSide = 0;
         if (oars.totalRemotes > 0)
         {
-          
-           
-            
-                foreach (var oar in oars.oars)
+
+
+
+            foreach (var oar in oars.oars)
+            {
+                if (oar.isPaddling)
                 {
-                    if (oar.isPaddling)
+                    if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
                     {
-                        if (oar.direction == WiimoteOars.DIRECTIONS.FORWARDS)
+                        if (oar.side == WiimoteOars.Oar.SIDES.LEFT)
                         {
-                            if (oar.side == WiimoteOars.Oar.SIDES.LEFT)
-                            {
-                                leftSide = 1;
-                            }
-                            else
-                            {
-                                rightSide = 1;
-                            }
+                            leftSide = 1;
                         }
-                        else
+                        else if
+                            (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
                         {
-                            if (oar.side == WiimoteOars.Oar.SIDES.LEFT)
-                            {
-                                leftSide = -1;
-                            }
-                            else
-                            {
-                                rightSide = -1;
-                            }
+                            rightSide = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (oar.side == WiimoteOars.Oar.SIDES.LEFT)
+                        {
+                            leftSide = -1;
+                        }
+                        else if
+                            (oar.side == WiimoteOars.Oar.SIDES.RIGHT)
+                        {
+                            rightSide = -1;
                         }
                     }
                 }
+            }
             animator.SetInteger("Left Direction", leftSide);
             animator.SetInteger("Right Direction", rightSide);
 
@@ -58,7 +64,7 @@ public class OarAnimator : MonoBehaviour
         }
         else // just keyboard
         {
-            if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 leftSide = 1;
             }
@@ -76,7 +82,7 @@ public class OarAnimator : MonoBehaviour
             }
             animator.SetInteger("Left Direction", leftSide);
             animator.SetInteger("Right Direction", rightSide);
-          
+
         }
     }
 

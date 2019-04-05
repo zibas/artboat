@@ -80,12 +80,17 @@ public class DebugUI : MonoBehaviour
     {
         if (oars.oars.Length > i)
         {
-            if(oars.oars[i].side == WiimoteOars.Oar.SIDES.RIGHT)
+            switch (oars.oars[i].side)
             {
-                oars.oars[i].side = WiimoteOars.Oar.SIDES.LEFT;
-            } else
-            {
-                oars.oars[i].side = WiimoteOars.Oar.SIDES.RIGHT;
+                case WiimoteOars.Oar.SIDES.LEFT:
+                    oars.oars[i].side = WiimoteOars.Oar.SIDES.RIGHT;
+                    break;
+                case WiimoteOars.Oar.SIDES.RIGHT:
+                    oars.oars[i].side = WiimoteOars.Oar.SIDES.MASTER;
+                    break;
+                case WiimoteOars.Oar.SIDES.MASTER:
+                    oars.oars[i].side = WiimoteOars.Oar.SIDES.LEFT;
+                    break;
             }
         }
     }

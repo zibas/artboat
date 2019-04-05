@@ -27,7 +27,7 @@ public class WiimoteOars : MonoBehaviour
     [System.Serializable]
     public class Oar
     {
-        public enum SIDES { RIGHT, LEFT};
+        public enum SIDES { RIGHT, LEFT, MASTER };
         public SIDES side = SIDES.RIGHT;
         public int index = 0;
         public DIRECTIONS direction;
@@ -42,6 +42,12 @@ public class WiimoteOars : MonoBehaviour
         public bool isRotating = false;
         public bool isPaddling = false;
         public Queue<int> paddlingStateQueue = new Queue<int>();
+
+        public bool GetButtonDown(string name)
+        {
+            return Wii.GetButtonDown(index, name);
+
+        }
 
     }
 
@@ -91,12 +97,21 @@ public class WiimoteOars : MonoBehaviour
         {
             oars[i] = new Oar();
             oars[i].index = i;
-            if (i == 0 || i == 2)
+            switch (i)
             {
-                oars[i].side = Oar.SIDES.LEFT;
+                case 0:
+                    oars[i].side = Oar.SIDES.LEFT;
+                    break;
+                case 1:
+                    oars[i].side = Oar.SIDES.RIGHT;
+                    break;
+                default:
+                    oars[i].side = Oar.SIDES.MASTER;
+                    break;
             }
+
         }
-      
+
     }
 
     public void FixedUpdate()
@@ -112,16 +127,16 @@ public class WiimoteOars : MonoBehaviour
             }
         }
     }
-    
+
     private void ParseData(Oar oar, Vector3 acceleration)
     {
         Vector3 accelerationDelta = (oar.acceleration - acceleration) * Time.deltaTime;
         oar.acceleration = acceleration;
         oar.inWater = acceleration.y < angleToBeInWater;
-        
+
         oar.isRotating = Mathf.Abs(accelerationDelta.x) > individualAxisThreshold && Mathf.Abs(accelerationDelta.z) > individualAxisThreshold;
 
-        
+
         float radius = Mathf.Sqrt(oar.acceleration.x * oar.acceleration.x + oar.acceleration.z * oar.acceleration.z);
         float angle = Mathf.Atan2(oar.acceleration.z, oar.acceleration.x) * Mathf.Rad2Deg;
         float angleDelta = (oar.angle - angle) * Time.deltaTime;
@@ -145,7 +160,7 @@ public class WiimoteOars : MonoBehaviour
         {
             oar.speed = 0;
         }
-        
+
         oar.smoothSpeed = Mathf.SmoothDamp(oar.smoothSpeed, oar.speed, ref oar.yVelocity, oar.smoothTime);
 
         if (oar.inWater)
@@ -154,7 +169,8 @@ public class WiimoteOars : MonoBehaviour
             {
                 oar.direction = oar.smoothSpeed > 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
 
-            } else
+            }
+            else if (oar.side == Oar.SIDES.LEFT)
             {
                 oar.direction = oar.smoothSpeed < 0 ? DIRECTIONS.BACKWARDS : DIRECTIONS.FORWARDS;
 
@@ -162,13 +178,13 @@ public class WiimoteOars : MonoBehaviour
         }
 
         oar.paddlingStateQueue.Enqueue(oar.inWater && oar.isRotating ? 1 : 0);
-        if(oar.paddlingStateQueue.Count > paddleStateFramesToAverage)
+        if (oar.paddlingStateQueue.Count > paddleStateFramesToAverage)
         {
             // relies on fixed update for speed consistency
             oar.paddlingStateQueue.Dequeue();
         }
         oar.isPaddling = oar.paddlingStateQueue.Average() > 0.5f;
-       
+
     }
-   
+
 }
