@@ -7,6 +7,7 @@ using System.Linq;
 //please don't judge me for the contents of this script file -ckm
 public class HighScores : MonoBehaviour {
     public Transform highScoreParent;
+    public Text yourScoreText;
 
     int highScoreCount = 10;
     Text[] highScoreTexts;
@@ -72,6 +73,9 @@ public class HighScores : MonoBehaviour {
                 highScoreTexts[i].text = "";
             }
         }
+
+        System.TimeSpan newTime = System.TimeSpan.FromSeconds(newScore);
+        yourScoreText.text = string.Format("{0:D2} : {1:D2}", newTime.Minutes, newTime.Seconds);
 
         gameObject.SetActive(true);
     }
